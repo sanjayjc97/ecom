@@ -48,7 +48,7 @@ class Product_page(Manage_base_view):
                 cart.save()
         except Exception as e:  
             print(e)
-        return JsonResponse({'data':cart.price})
+        return JsonResponse({'data':cart.price,'baseprice':cart.product_name.price})
     
     def update_cart(self,request,*args,**kwargs):
         data = self.request.GET.get('data')
@@ -80,6 +80,10 @@ class Product_page(Manage_base_view):
             print(str(e))
             return redirect('cart')
         return redirect('cart')
+    
+    def checkout(self,request,*args,**kwargs):
+        Cart.is_active.filter(created_by = request.user).delete()
+        return render(request,'checkout.html',locals())
 
 class Product_crud(SuperuserRedirectPermission,Manage_base_view):
     '''

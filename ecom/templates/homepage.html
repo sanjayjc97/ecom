@@ -67,6 +67,7 @@ $(document).ready(function(){
         console.log('data',data)
         const value = $('#cart span').text()
         $('#cart span').text(parseInt(value)+1)
+        alert('Successfully added to cart')
       },
       error:function(){
         const abc = $('#cart span').text()
