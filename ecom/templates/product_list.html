@@ -25,7 +25,7 @@
           <td>{{product.price}}</td>
           <td>
             <a class="btn btn-primary p-2 me-3 ps-3 pe-3" href="{% url 'edit_product' slug=product.slug_field %}">Edit</a>
-            <button class="btn btn-danger p-2">Delete</button>
+            <button type="button" class="btn btn-danger p-2 deletebtn" data-bs-target="#exampleModal" data-bs-toggle="modal" data-id="{{product.slug_field}}">Delete</button>
           </td>
         </tr>
         {% endfor %}
@@ -33,4 +33,36 @@
     </table>
   </div>
 
+  <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel" style="color: red; font-size: 30px; font-weight: 700; text-align: center;">Delete </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'delete_product' %}"  method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <p style="color: red; font-size: 20px;">Are you sure to delete the product?
+              <input type="text" hidden  name="deletevalue" id="disable_divcont" >
+            </p>
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+
+            <button type="submit" class="btn btn-danger " style="font-weight: 700;">Yes</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $('.deletebtn').click(function () {
+    var x_id = $(this).attr('data-id')
+    $('#disable_divcont').val(x_id)
+  })
+
+
+  </script>
   {% endblock content %}

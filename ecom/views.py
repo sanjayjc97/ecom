@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from base.utils import Manage_base_view
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import F,Aggregate,Sum
 #local imports 
 
+from base.utils import Manage_base_view,SuperuserRedirectPermission
 from .models import *
 from .forms import Product_add_form
 
@@ -81,7 +81,10 @@ class Product_page(Manage_base_view):
             return redirect('cart')
         return redirect('cart')
 
-class Product_crud(Manage_base_view):
+class Product_crud(SuperuserRedirectPermission,Manage_base_view):
+    '''
+    only superuser can access the product crud
+    '''
 
     def list_products(self,request,*args,**kwargs):
         listing = Product.is_active.all()
@@ -115,3 +118,12 @@ class Product_crud(Manage_base_view):
                 return redirect("list_products")
         form = Product_add_form(instance = product)
         return render(request,'add_form.html',locals())
+    
+    def delete_product(self,request,*args,**kwargs):
+        print(f'args{args},keargs{kwargs}')
+        if request.method == 'POST':
+            data = request.POST.get('deletevalue',None)
+            if data:
+                product = Product.is_active.get(slug_field = data).delete()
+                return redirect("list_products")
+        return redirect('list_products')

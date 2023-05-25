@@ -50,4 +50,3 @@ class Cart(Base_content):
     def get_total_quantity(self):
         return self.quantity
     
-    

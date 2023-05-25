@@ -45,7 +45,7 @@
                       </button>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0 price">$ {{product.price}}</h6>
+                      <h6 class="mb-0 price">$ <span>{{product.price}}</span></h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <a href="{% url 'remove_cart' slug=product.product_name.slug_field %}" class="text-muted"><i
@@ -82,7 +82,7 @@
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
-                    <h5>€ 137.00</h5>
+                    <h5 id="total_price">$ <span>{{listing|get_total_price}}</span></h5>
                   </div>
 
                   <button type="button" class="btn btn-dark btn-block btn-lg"
@@ -99,6 +99,7 @@
 </section>
 
 <script>
+  var totalPrice = 0;
   $(document).ready(function () {
     $(".removebtn").click(function () {
       $.ajax({
@@ -120,8 +121,8 @@
         data: { 'data': $(this).data('product-id') },
         success: function (data) {
           console.log(data)
-          var item = $(this).closest('hr')
-          console.log('item',item.find("price"))
+          
+          console.log('dsfsdf' ,totalPrice+=parseFloat(data.data))
         }
       })
       console.log("$(this).data('product-id')", $(this).data('product-id'))

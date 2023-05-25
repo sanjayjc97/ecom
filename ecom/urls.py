@@ -12,5 +12,6 @@ urlpatterns = [
     path('add_product',Product_crud.as_view(method_name = 'add_product'),name = 'add_product'),
     path('add_product',Product_crud.as_view(method_name = 'add_product'),name = 'add_product'),
     path('edit/<slug:slug>',Product_crud.as_view(method_name = 'edit_product'),name = 'edit_product'),
+    path('delete_product',Product_crud.as_view(method_name = 'delete_product'),name = 'delete_product'),
 
 ]

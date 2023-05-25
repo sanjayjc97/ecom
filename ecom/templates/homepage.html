@@ -67,6 +67,12 @@ $(document).ready(function(){
         console.log('data',data)
         const value = $('#cart span').text()
         $('#cart span').text(parseInt(value)+1)
+      },
+      error:function(){
+        const abc = $('#cart span').text()
+        if (abc == "None"){
+          $('#cart span').text(parseInt(0))
+        }
       }
     })
   })
