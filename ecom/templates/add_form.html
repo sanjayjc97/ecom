@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+    .errorlist{
+        color: red;
+    }
+</style>
+<div class="container px-5 my-5">
+    <div  style="display: flex; align-items: center; justify-content: center;">
+   <div>
+    {{form.errors}}
+   </div>
+    <form id="contactForm" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+            {{form.as_p}}
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+</div>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  {% endblock content %}

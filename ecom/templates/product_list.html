@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Product List{% endblock %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="table-responsive">
+    <div>
+        <h1>Products CRUD</h1>
+        <a class="btn btn-primary add me-2 mb-2" style="float: right;" href="{% url 'add_product' %}">Add Product</a>
+    </div>
+    <table class="table mt-5 ">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Price ($)</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in listing %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{product.product_name}}</td>
+          <td>{{product.price}}</td>
+          <td>
+            <a class="btn btn-primary p-2 me-3 ps-3 pe-3" href="{% url 'edit_product' slug=product.slug_field %}">Edit</a>
+            <button class="btn btn-danger p-2">Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% endblock content %}

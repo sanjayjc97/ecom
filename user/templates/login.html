@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extraheaders %}
+<link href="{% static 'sign-in.css' %}" rel="stylesheet">
+{% endblock extraheaders %}
+
+{% block content %}
+<style>
+  .errorlist{
+    color: red;
+  }
+  
+</style>
+<main class="form-signin w-100 m-auto">
+    <form method="post">
+        {% csrf_token %}
+        {% if path %}
+        <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
+        {% else %}
+        <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+        {% endif %}
+    
+        <div class="form-floating">
+          {{form.as_p}}
+        </div>
+        {% if path %}
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+        <p>Already have an account <a href="{% url 'login' %}" style="text-decoration: none;">Click Here</a></p>
+        {% else %}
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <p>Don't have an account <a href="{% url 'signup' %}" style="text-decoration: none;" >Click Here</a></p>
+        {% endif %}
+        <p class="mt-5 mb-3 text-muted">&copy; 2023–2024</p>
+      </form>    
+</main>
+  {% endblock content %}
